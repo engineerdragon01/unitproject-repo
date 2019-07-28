@@ -9,12 +9,9 @@ handlers:
   static_dir: images
 - url: /js
   static_dir: js
-- url: /populateDatabase
-  script: main.app
-  login: admin
 - url: /.*
   script: main.app
-  login: required
+  # login: required
 
 libraries:
 - name: jinja2
