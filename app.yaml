@@ -8,8 +8,10 @@ handlers:
 - url: /images
   static_dir: images
 - url: /js
-  static_dir: /.*
+  static_dir: javascripts
+- url: /.*
   script: main.app
+  login: required
 
 libraries:
 - name: jinja2
