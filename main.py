@@ -7,7 +7,7 @@ import logging
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
-class UnitPage(webapp2.RequestHandler):
+class LoginPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
 
@@ -17,5 +17,5 @@ class UnitPage(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/',UnitPage)
+    ('/', LoginPage)
 ], debug = True)
