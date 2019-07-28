@@ -8,8 +8,7 @@ handlers:
 - url: /images
   static_dir: images
 - url: /js
-  static_dir: js
-- url: /.*
+  static_dir: /.*
   script: main.app
 
 libraries:
