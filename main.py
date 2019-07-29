@@ -91,7 +91,8 @@ class EnterPage(webapp2.RequestHandler):
     def post(self):
         user = users.get_current_user()
         email_address = user.email()
-        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        unit_user =
+        .query().filter(UnitUser.email == email_address).get()
         new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
         template_vars = {
             "unit_name": self.request.get("group"),
