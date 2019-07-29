@@ -21,7 +21,7 @@ class MainPage(webapp2.RequestHandler):
 class Unit(ndb.Model):
         unit_name = ndb.StringProperty(required=True)
         members_email = ndb.KeyProperty(kind=users, required=True, repeated=True)
-        task_keys = ndb.KeyProperty(kind=Task, required=False, repeated=True)
+        task_keys = ndb.KeyProperty(kind=Task, required=True, repeated=True)
 
 
 class IndividualPage(webapp2.RequestHandler):
