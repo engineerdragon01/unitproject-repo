@@ -12,7 +12,7 @@ jinja_env = jinja2.Environment(
 )
 
 class Task(ndb.Model):
-        task_name = ndb.StringProperty()
+        task_name = ndb.
         description = ndb.StringProperty(repeated=True)
         owner = ndb.KeyProperty(kind=User, required=True)
         # task_check
