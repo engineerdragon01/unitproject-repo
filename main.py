@@ -56,8 +56,8 @@ class MainPage(webapp2.RequestHandler):
                 self.response.write('''
                     Welcome to our site, %s!  Please sign up! <br>
                     <form method="post" action="/">
-                    <input type="text" name="first_name" value="Enter First Name">
-                    <input type="text" name="last_name" value="Enter Last Name">
+                    <input type="text" name="first_name" placeholder="Enter First Name">
+                    <input type="text" name="last_name" placeholder="Enter Last Name">
                     <input type="submit">
                     </form><br> %s <br>
                     ''' % (email_address, signout_link_html))
@@ -86,6 +86,9 @@ class MainPage(webapp2.RequestHandler):
 
 class EnterPage(webapp2.RequestHandler):
     def get(self):
+        template_vars = {
+        
+        }
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
     def post(self):
@@ -101,13 +104,11 @@ class EnterPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
-
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
-#hi
 
 
 class TaskPage(webapp2.RequestHandler):
@@ -122,6 +123,7 @@ class TaskPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/enter', EnterPage),
     ('/individual', IndividualPage),
     ('/task', TaskPage),
 ], debug = True)
