@@ -43,6 +43,8 @@ class QueuePage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
+
+
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/individual', IndividualPage),
