@@ -32,6 +32,9 @@ class Unit(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
+        template_vars = {
+
+        }
         user = users.get_current_user()
         if user:
             signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
@@ -47,6 +50,8 @@ class MainPage(webapp2.RequestHandler):
                 email_address,
                 signout_link_html,
                 ))
+                template = jinja_env.get_template('templates/home.html')
+                self.response.write(template.render(template_vars))
             else:
                 self.response.write('''
                     Welcome to our site, %s!  Please sign up! <br>
@@ -79,8 +84,8 @@ class MainPage(webapp2.RequestHandler):
 
 
 
-        template = jinja_env.get_template('templates/home.html')
-        self.response.write(template.render(template_vars))
+        # template = jinja_env.get_template('templates/home.html')
+        # self.response.write(template.render(template_vars))
 
 
 class IndividualPage(webapp2.RequestHandler):
@@ -91,6 +96,8 @@ class IndividualPage(webapp2.RequestHandler):
         template_vars = {
             "Unit Name": self.request.get("group"),
         }
+        template = jinja_env.get_template('templates/task.html')
+        self.response.write(template.render(template_vars))
 
 
 class TaskPage(webapp2.RequestHandler):
