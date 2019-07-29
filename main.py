@@ -19,6 +19,7 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
 
+
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
@@ -26,6 +27,7 @@ class IndividualPage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
+
 
 class TaskPage(webapp2.RequestHandler):
     def get(self):
@@ -42,7 +44,6 @@ class QueuePage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/queue.html')
         self.response.write(template.render(template_vars))
-
 
 
 
