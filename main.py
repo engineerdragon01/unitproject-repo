@@ -10,6 +10,7 @@ from google.appengine.api import users
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
