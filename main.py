@@ -38,7 +38,7 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
         if user:
             signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-            email_address = user.nickname()
+            email_address = user.email()
             unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
             if unit_user:
@@ -74,7 +74,7 @@ class MainPage(webapp2.RequestHandler):
         unit_user = UnitUser(
             first_name=self.request.get('first_name'),
             last_name=self.request.get('last_name'),
-            email=user.nickname())
+            email=user.email())
         unit_user.put()
         self.response.write('Thanks for signing up, %s! <br><a href="/">Home</a>' % unit_user.first_name)
         template_vars = {
@@ -93,11 +93,16 @@ class IndividualPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
     def post(self):
+        user = users.get_current_user()
+        email_address = user.email()
+        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
         template_vars = {
             "Unit Name": self.request.get("group"),
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
+
 
 
 class TaskPage(webapp2.RequestHandler):
@@ -107,6 +112,7 @@ class TaskPage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
+
 
 
 app = webapp2.WSGIApplication([
