@@ -11,31 +11,30 @@ jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
 
+
+class User(ndb.Model):
+    user_name = users.get_current_user()
+
 class Task(ndb.Model):
-        task_name = ndb.StringProperty()
-        description = ndb.StringProperty(repeated=True)
-        owner = ndb.KeyProperty(kind=User, required=True)
+    task_name = ndb.StringProperty(required=True)
+    description = ndb.StringProperty(repeated=True)
+    owner = ndb.KeyProperty(kind=User, required=True)
         # task_check
 
 # unit model class
 class Unit(ndb.Model):
-        unit_name = ndb.StringProperty(required=True)
-        members = ndb.KeyProperty(kind=User, required=True, repeated=True)
-        task_keys = ndb.KeyProperty(kind=Task, required=False, repeated=True)
+    unit_name = ndb.StringProperty(required=True)
+    members = ndb.KeyProperty(kind=User, required=True, repeated=True)
+    task_keys = ndb.KeyProperty(kind=Task, required=False, repeated=True)
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
-
+            'user_name': user_name
         }
         template = jinja_env.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
-
-class Unit(ndb.Model):
-        unit_name = ndb.StringProperty(required=True)
-        members_email = ndb.KeyProperty(kind=users, required=True, repeated=True)
-        task_keys = ndb.KeyProperty(kind=Task, required=True, repeated=True)
 
 
 class IndividualPage(webapp2.RequestHandler):
