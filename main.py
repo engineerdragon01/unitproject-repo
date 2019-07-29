@@ -29,7 +29,7 @@ class IndividualPage(webapp2.RequestHandler):
         template_vars = {
 
         }
-        template = jinja_env.get_template('templates/login.html')
+        template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
 class TaskPage(webapp2.RequestHandler):
@@ -47,6 +47,8 @@ class QueuePage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/queue.html')
         self.response.write(template.render(template_vars))
+
+
 
 
 app = webapp2.WSGIApplication([
