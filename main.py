@@ -21,7 +21,7 @@ class Task(ndb.Model):
     task_name = ndb.StringProperty(required=True)
     description = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty(kind=UnitUser, required=True)
-        # task_check
+    # task_check
 
 # unit model class
 class Unit(ndb.Model):
@@ -90,10 +90,13 @@ class MainPage(webapp2.RequestHandler):
 
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
-        template_vars = {
-
-        }
         template = jinja_env.get_template('templates/individual.html')
+        self.response.write(template.render(template_vars))
+    def post(self):
+        template_vars = {
+            "Unit Name": self.request.get("group"),
+        }
+        template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
 
 
