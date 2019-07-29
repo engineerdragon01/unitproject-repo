@@ -81,9 +81,6 @@ class MainPage(webapp2.RequestHandler):
 
         }
 
-
-
-
         # template = jinja_env.get_template('templates/home.html')
         # self.response.write(template.render(template_vars))
 
@@ -98,9 +95,9 @@ class IndividualPage(webapp2.RequestHandler):
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
         new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
         template_vars = {
-            "Unit Name": self.request.get("group"),
+            "unit_name": self.request.get("group"),
         }
-        template = jinja_env.get_template('templates/task.html')
+        template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
 
