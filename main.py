@@ -19,6 +19,11 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
 
+class Unit(ndb.Model):
+        unit_name = ndb.StringProperty(required=True)
+        members_email = ndb.KeyProperty(kind=users, required=True, repeated=True)
+        task_keys = ndb.KeyProperty(kind=Task, required=True, repeated=True)
+
 
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
