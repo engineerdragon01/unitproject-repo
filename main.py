@@ -18,7 +18,7 @@ class MainPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
 
-class LoginPage(webapp2.RequestHandler):
+class IndividualPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
 
@@ -45,7 +45,7 @@ class QueuePage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/login', LoginPage),
+    ('/indeividual', IndividualPage),
     ('/task', TaskPage),
     ('/queue', QueuePage),
 ], debug = True)
