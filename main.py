@@ -40,11 +40,12 @@ class MainPage(webapp2.RequestHandler):
 
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
-        template_vars = {
-
-        }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
+    def post(self):
+        template_vars = {
+            "Unit Name": self.request.get("group"),
+        }
 
 
 class TaskPage(webapp2.RequestHandler):
