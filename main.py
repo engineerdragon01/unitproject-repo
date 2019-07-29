@@ -84,15 +84,21 @@ class MainPage(webapp2.RequestHandler):
         # template = jinja_env.get_template('templates/home.html')
         # self.response.write(template.render(template_vars))
 
-
-class IndividualPage(webapp2.RequestHandler):
+class EnterPage(webapp2.RequestHandler):
     def get(self):
-        template = jinja_env.get_template('templates/individual.html')
+        template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
     def post(self):
         template_vars = {
             "unit_name": self.request.get("group"),
         }
+        template = jinja_env.get_template('templates/enter.html')
+        self.response.write(template.render(template_vars))
+
+
+
+class IndividualPage(webapp2.RequestHandler):
+    def get(self):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
