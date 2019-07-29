@@ -87,7 +87,7 @@ class MainPage(webapp2.RequestHandler):
 class EnterPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
-        
+
         }
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
@@ -105,6 +105,9 @@ class EnterPage(webapp2.RequestHandler):
 
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
+        template_vars = {
+
+        }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
