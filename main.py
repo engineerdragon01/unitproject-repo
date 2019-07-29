@@ -100,13 +100,11 @@ class EnterPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
-
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
-#hi
 
 
 class TaskPage(webapp2.RequestHandler):
@@ -121,6 +119,7 @@ class TaskPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/enter', EnterPage),
     ('/individual', IndividualPage),
     ('/task', TaskPage),
 ], debug = True)
