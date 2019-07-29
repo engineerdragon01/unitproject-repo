@@ -95,7 +95,7 @@ class EnterPage(webapp2.RequestHandler):
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-        new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
+        new_unit_key = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
         template_vars = {
             "unit_name": self.request.get("group"),
         }
@@ -115,12 +115,16 @@ class IndividualPage(webapp2.RequestHandler):
 
 class TaskPage(webapp2.RequestHandler):
     def get(self):
+        template = jinja_env.get_template('templates/task.html')
+        self.response.write(template.render(template_vars))
+    def post(self):
+        unit_name = self.request.get("group")
+        unit_query = Unit.query().filter(Unit.unit_name==unit_name).fetch()
         template_vars = {
-
+            "unit_key": unit_query
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
-
 
 
 app = webapp2.WSGIApplication([
