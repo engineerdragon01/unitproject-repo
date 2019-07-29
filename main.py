@@ -13,23 +13,24 @@ jinja_env = jinja2.Environment(
 
 
 class User(ndb.Model):
-    user_name = users.get_current_user()
+    user_name = ndb.StringProperty(required=True)
 
 class Task(ndb.Model):
     task_name = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(repeated=True)
+    description = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty(kind=User, required=True)
     # task_check
 
 # unit model class
 class Unit(ndb.Model):
     unit_name = ndb.StringProperty(required=True)
-    members = ndb.KeyProperty(kind=User, required=True, repeated=True)
-    task_keys = ndb.KeyProperty(kind=Task, required=False, repeated=True)
+    members = ndb.KeyProperty(kind=User, repeated=True)
+    task_keys = ndb.KeyProperty(kind=Task, repeated=True)
 
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
+        user_name = users.get_current_user()
         template_vars = {
             'user_name': user_name
         }
