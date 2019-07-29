@@ -100,6 +100,7 @@ class IndividualPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
 
+#hi
 
 
 class TaskPage(webapp2.RequestHandler):
