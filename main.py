@@ -15,7 +15,7 @@ class Task(ndb.Model):
         task_name = ndb.StringProperty()
         description = ndb.StringProperty(repeated=True)
         owner = ndb.KeyProperty(kind=User, required=True)
-        task_check
+        # task_check
 
 # unit model class
 class Unit(ndb.Model):
