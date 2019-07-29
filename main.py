@@ -45,7 +45,7 @@ class QueuePage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/indeividual', IndividualPage),
+    ('/individual', IndividualPage),
     ('/task', TaskPage),
     ('/queue', QueuePage),
 ], debug = True)
