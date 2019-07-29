@@ -119,7 +119,7 @@ class TaskPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/enter'),
+    ('/enter', EnterPage),
     ('/individual', IndividualPage),
     ('/task', TaskPage),
 ], debug = True)
