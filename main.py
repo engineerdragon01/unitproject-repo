@@ -76,9 +76,6 @@ class MainPage(webapp2.RequestHandler):
 
         }
 
-
-
-
         template = jinja_env.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
 
@@ -91,6 +88,8 @@ class IndividualPage(webapp2.RequestHandler):
         template_vars = {
             "Unit Name": self.request.get("group"),
         }
+        template = jinja_env.get_template('templates/task.html')
+        self.response.write(template.render(template_vars))
 
 
 class TaskPage(webapp2.RequestHandler):
