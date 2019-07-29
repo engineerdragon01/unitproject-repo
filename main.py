@@ -69,5 +69,4 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/individual', IndividualPage),
     ('/task', TaskPage),
-    ('/queue', QueuePage),
 ], debug = True)
