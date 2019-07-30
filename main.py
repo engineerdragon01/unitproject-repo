@@ -63,7 +63,7 @@ class MainPage(webapp2.RequestHandler):
                     ''' % (email_address, signout_link_html))
         else:
 
-            login_url = users.create_logout_url('/')
+            login_url = users.create_login_url('/')
             login_html_element = '<a href="%s">Sign in</a>' % login_url
 
             self.response.write('Please log in.<br>' + login_html_element)
@@ -92,6 +92,13 @@ class EnterPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
     def post(self):
+        user = users.get_current_user()
+        email_address = user.email()
+        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
+        template_vars = {
+            "unit_name": self.request.get("group"),
+        }
         # user = users.get_current_user()
         # email_address = user.email()
         # unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
