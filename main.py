@@ -161,7 +161,7 @@ class AboutPage(webapp2.RequestHandler):
         template_vars = {
 
         }
-        template = jinja_env.get_template('templates/task.html')
+        template = jinja_env.get_template('templates/about.html')
         self.response.write(template.render(template_vars))
 
 

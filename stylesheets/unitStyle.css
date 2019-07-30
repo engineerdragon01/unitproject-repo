@@ -28,9 +28,8 @@
 
 .unit_input {
   display: flex;
+  align-items: center;
   text-align: justify;
-  align-items: stretch;
-  justify-content: center;
   padding: 12px 160px;
   font-size: 18px;
 }
