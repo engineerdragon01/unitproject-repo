@@ -63,7 +63,7 @@ class MainPage(webapp2.RequestHandler):
                     ''' % (email_address, signout_link_html))
         else:
 
-            login_url = users.create_logout_url('/')
+            login_url = users.create_login_url('/')
             login_html_element = '<a href="%s">Sign in</a>' % login_url
 
             self.response.write('Please log in.<br>' + login_html_element)
