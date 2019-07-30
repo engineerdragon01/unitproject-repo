@@ -18,15 +18,25 @@
         <li>{{taskkey.get().task_name}}</li>
         {% endfor %}
       </ul>
-      <p>{{unit_key}}</p>
     </div>
       <input type="text" name="task">
       <input type="hidden" name="currentname" value="{{unit_key}}">
       <br>
+      <button class=submit_button type="submit" name="button">Add</button>
       <div>
+        </form>
+        <form method="POST" action="/individual">
         <h2>+Add Members</h2>
+        <ul>
+          {% for userkey in unit.members%}
+          <li>{{userkey.get().email}}</li>
+          {% endfor %}
+        </ul>
       </div>
-    <button class=submit_button type="submit" name="button">Finish</button>
+      <input type="text" name="user">
+      <input type="hidden" name="currentname" value="{{unit_key}}">
+      <br>
+    <button class=submit_button type="submit" name="button">Add</button>
       </center>
     </form>
   </body>
