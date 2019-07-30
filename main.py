@@ -92,7 +92,6 @@ class EnterPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
     def post(self):
-<<<<<<< HEAD
         user = users.get_current_user()
         email_address = user.email()
         unit_user =
@@ -101,7 +100,6 @@ class EnterPage(webapp2.RequestHandler):
         template_vars = {
             "unit_name": self.request.get("group"),
         }
-=======
         # user = users.get_current_user()
         # email_address = user.email()
         # unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
@@ -109,7 +107,6 @@ class EnterPage(webapp2.RequestHandler):
         # template_vars = {
         #     "unit_name": self.request.get("group"),
         # }
->>>>>>> 1150a1127c757c5d410783c58b5b5550c2f4fd64
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
 
