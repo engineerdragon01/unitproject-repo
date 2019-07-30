@@ -111,10 +111,11 @@ class IndividualPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
     def post(self):
-        template = jinja_env.get_template('templates/individual.html')
-        self.response.write(template.render(template_vars))
         task_needle = self.request.get("task")
-        task_query = Task.
+        needle_name = self.request.get("group")
+        unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
+        print(unit_query)
+        print(task_needle)
         template_vars = {
             "task_needle": task_needle,
 
