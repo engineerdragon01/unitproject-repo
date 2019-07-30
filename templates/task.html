@@ -9,16 +9,16 @@
   <body>
     <form method="POST" action="/individual">
       <center>
-    <h1>Make Your Unit</h1>
-      <div>
-        <h2>+Add Members</h2>
-      </div>
+    <h1>Unit: {{unit_name}}</h1>
+    <div>
+      <h2>+Add Tasks</h2>
+      <p>{{unit_key}}</p>
+    </div>
       <input type="text" name="task">
       <input type="hidden" name="currentname" value="{{unit_key}}">
       <br>
       <div>
-        <h2>+Add Tasks</h2>
-        <p>{{unit_key}}</p>
+        <h2>+Add Members</h2>
       </div>
     <button class=submit_button type="submit" name="button">Finish</button>
       </center>
