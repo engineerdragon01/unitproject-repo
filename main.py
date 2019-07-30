@@ -139,15 +139,11 @@ class TaskPage(webapp2.RequestHandler):
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
         needle_name = self.request.get("group")
-        # TODO: Add a .filter to this query to filter for Units that have unit_name == needle_name.
         unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
-        # TODO: Then check if unit_query is empty. If so, create a new Unit, if not ...
         if unit_query:
             print('already made')
         else:
             new_unit_key = Unit(unit_name=needle_name, members=[unit_user.key]).put()
-        # print(needle_name)
-        # print(unit_query)
         template_vars = {
             "unit_name": self.request.get("group"),
             "unit_key": unit_query,
