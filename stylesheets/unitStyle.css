@@ -1,7 +1,17 @@
 button {
   background-color: lightgrey;
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0
+  rgba(0,0,0,0.19);
+  opacity: .6;
+  transition: 0.3s;
+  display:inline-block;
+  cursor: pointer;
 }
+
 body {
-  background-color: pink;
+  background-color: #d74742;
 }
-/* hey */
