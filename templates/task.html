@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="stylesheets/unitStyle.css">
   </head>
   <body>
-    <form method="POST" action="/individual">
       <center>
-    <h1>Unit: {{unit_name}}</h1>
+          <form method="POST" action="/individual">
+    <h1>Unit: {{unit.unit_name}}</h1>
     <div>
       <h2>+Add Tasks</h2>
+      <ul>
+        {%for taskkey in unit.task_keys%}
+
+        <li>{{taskkey.get().task_name}}</li>
+        {% endfor %}
+      </ul>
       <p>{{unit_key}}</p>
     </div>
       <input type="text" name="task">
