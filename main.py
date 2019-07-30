@@ -19,8 +19,8 @@ class UnitUser(ndb.Model):
 
 class Task(ndb.Model):
     task_name = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(required=True)
-    owner = ndb.KeyProperty(kind=UnitUser, required=True)
+    description = ndb.StringProperty(required=False)
+    owner = ndb.KeyProperty(kind=UnitUser, required=False)
     # task_check
 
 # unit model class
@@ -111,39 +111,36 @@ class IndividualPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
     def post(self):
-        task_needle = self.request.get("task")
-        needle_name = self.request.get("group")
-        unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
-        print(unit_query)
-        print(task_needle)
+        unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
+        needle_task = self.request.get("task")
+        task_key = Task(task_name=needle_task).put()
+        unit = Unit.query().filter(Unit.key == unit_key).get()
+        unit.task_keys.append(task_key)
+        unit.put()
+        print(unit)
+        print(task_key)
         template_vars = {
-            "task_needle": task_needle,
-
-        }
-
-        template = jinja_env.get_template('templates/individual.html')
-        self.response.write(template.render(template_vars))
-class TaskPage(webapp2.RequestHandler):
-    def get(self):
-        template_vars = {
+            "task_needle": task_key,
 
         }
         template = jinja_env.get_template('templates/task.html')
-        self.response.write(template.render(template_vars))
-    def post(self):
+        self.redirect('/task?group={}'.format(unit.unit_name)).write(template.render(template_vars))
+class TaskPage(webapp2.RequestHandler):
+    def get(self):
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
         needle_name = self.request.get("group")
-        unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
-        if unit_query:
+        unit = Unit.query().filter(Unit.unit_name == needle_name).get()
+        if unit:
             print('already made')
         else:
-            new_unit_key = Unit(unit_name=needle_name, members=[unit_user.key]).put()
+            unit = Unit(unit_name=needle_name, members=[unit_user.key])
+            unit_key = unit.put()
         template_vars = {
             "unit_name": self.request.get("group"),
-            "unit_key": unit_query,
+            "unit_key": unit.key.urlsafe(),
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
