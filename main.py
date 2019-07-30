@@ -113,18 +113,15 @@ class IndividualPage(webapp2.RequestHandler):
     def post(self):
         unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
         needle_task = self.request.get("task")
-        task_key = Task(task_name=needle_task).put()
+        task = Task(task_name=needle_task)
+        task_key = task.put()
         unit = Unit.query().filter(Unit.key == unit_key).get()
         unit.task_keys.append(task_key)
         unit.put()
         print(unit)
         print(task_key)
-        template_vars = {
-            "task_needle": task_key,
-
-        }
-        template = jinja_env.get_template('templates/task.html')
-        self.redirect('/task?group={}'.format(unit.unit_name)).write(template.render(template_vars))
+        taskname = task.task_name
+        self.redirect('/task?group={}'.format(unit.unit_name))
 class TaskPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -139,6 +136,7 @@ class TaskPage(webapp2.RequestHandler):
             unit = Unit(unit_name=needle_name, members=[unit_user.key])
             unit_key = unit.put()
         template_vars = {
+            "unit": unit,
             "unit_name": self.request.get("group"),
             "unit_key": unit.key.urlsafe(),
         }
