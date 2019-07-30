@@ -151,9 +151,20 @@ class TaskPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
+class AboutPage(webapp2.RequestHandler):
+    def get(self):
+        template_vars = {
+
+        }
+        template = jinja_env.get_template('templates/task.html')
+        self.response.write(template.render(template_vars))
+
+
+
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/enter', EnterPage),
     ('/individual', IndividualPage),
     ('/task', TaskPage),
+    ('/about', AboutPage),
 ], debug = True)
