@@ -99,13 +99,6 @@ class EnterPage(webapp2.RequestHandler):
         template_vars = {
             "unit_name": self.request.get("group"),
         }
-        # user = users.get_current_user()
-        # email_address = user.email()
-        # unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-        # new_unit_key = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
-        # template_vars = {
-        #     "unit_name": self.request.get("group"),
-        # }
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
 
@@ -118,16 +111,18 @@ class IndividualPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
     def post(self):
-        # unit_name = self.request.get("group")
-        # unit_query = Unit.query().filter(Unit.unit_name==unit_name).fetch()
-        # template_vars = {
-        #     "unit_key": unit_query
-        # }
+        task_needle = self.request.get("task")
+        needle_name = self.request.get("group")
+        unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
+        print(unit_query)
+        print(task_needle)
+        template_vars = {
+            "task_needle": task_needle,
+
+        }
 
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
-
-
 class TaskPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
@@ -136,25 +131,16 @@ class TaskPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
     def post(self):
-        # unit_name = self.request.get("group")
-        # unit_query = Unit.query().filter(Unit.unit_name==unit_name).fetch()
-        # template_vars = {
-        #     "unit_key": unit_query
-        # }
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
         needle_name = self.request.get("group")
-        # TODO: Add a .filter to this query to filter for Units that have unit_name == needle_name.
         unit_query = Unit.query().filter(Unit.unit_name == needle_name).get()
-        # TODO: Then check if unit_query is empty. If so, create a new Unit, if not ...
         if unit_query:
             print('already made')
         else:
             new_unit_key = Unit(unit_name=needle_name, members=[unit_user.key]).put()
-        # print(needle_name)
-        # print(unit_query)
         template_vars = {
             "unit_name": self.request.get("group"),
             "unit_key": unit_query,
