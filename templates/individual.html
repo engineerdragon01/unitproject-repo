@@ -18,7 +18,7 @@
     {% set UnitUser_owner = task_owner_key.get() %}
     {% set UnitUser_email = UnitUser_owner.email %}
     {% if user_email == UnitUser_email%}
-    <input type="checkbox" name="taskkeyname" value="">{{task.task_name}}<br>
+    <input type="checkbox" name="taskkeyname" value="">{{task.task_name}} Owner: {{UnitUser_email}}<br>
     <br>
     {% endif %}
     {% endfor %}
@@ -29,7 +29,7 @@
     {% set UnitUser_owner = task_owner_key.get() %}
     {% set UnitUser_email = UnitUser_owner.email %}
     {% if user_email != UnitUser_email%}
-    <button type="button">{{task.task_name}}</button><br>
+    <button type="button">{{task.task_name}} Owner: {{UnitUser_email}}</button><br>
     {% endif %}
     {% endfor %}
     </center>
