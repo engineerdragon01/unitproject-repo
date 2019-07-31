@@ -20,3 +20,8 @@ h3 {
   text-shadow: 2px 2px #F06577;
   text-align: center;
 }
+
+#aboutHeader {
+  text-align: center;
+  font-size: 70px
+}
