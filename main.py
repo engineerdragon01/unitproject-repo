@@ -33,9 +33,11 @@ class Unit(ndb.Model):
 class MainPage(webapp2.RequestHandler):
     def get(self):
         unit_list = Unit.query().fetch()
-
+        user = users.get_current_user()
+        email_address = user.email()
         template_vars = {
-            "unit_list": unit_list
+            "unit_list": unit_list,
+            "member_email": email_address,
         }
         user = users.get_current_user()
         if user:
