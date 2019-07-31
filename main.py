@@ -62,7 +62,7 @@ class MainPage(webapp2.RequestHandler):
                     <body id=signup_body>
                     <div class=center>
                     Welcome to our site, %s!  Please sign up! <br>
-                    <form method="post" action="/">
+                    <form class=formFlex method="post" action="/">
                     <input type="text" name="first_name" placeholder="Enter First Name">
                     <input type="text" name="last_name" placeholder="Enter Last Name">
                     <input class=submit_button type="submit">
