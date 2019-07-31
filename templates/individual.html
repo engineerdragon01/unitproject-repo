@@ -28,23 +28,23 @@
     {% endfor %}
     <h2>Team Tasks</h2>
     {% for taskkey in unit.task_keys %}
-    {% set task = taskkey.get()%}
-    {% set task_owner_key = task.owner %}
-    {% set UnitUser_owner = task_owner_key.get() %}
-    {% set UnitUser_email = UnitUser_owner.email %}
-    {% if task.finished == False%}
-    {% if user_email != UnitUser_email%}
+      {% set task = taskkey.get()%}
+      {% set task_owner_key = task.owner %}
+      {% set UnitUser_owner = task_owner_key.get() %}
+      {% set UnitUser_email = UnitUser_owner.email %}
+        {% if task.finished == False%}
+          {% if user_email != UnitUser_email%}
     <button type="button">{{task.task_name}} Owner: {{UnitUser_email}}</button><br>
-    {% endif %}
-    {% endif %}
+          {% endif %}
+      {% endif %}
     {% endfor %}
     <h2>Finished Tasks</h2>
     {% for taskkey in unit.task_keys %}
-    {% set task = taskkey.get()%}
-    {% set task_owner_key = task.owner %}
-    {% set UnitUser_owner = task_owner_key.get() %}
-    {% set UnitUser_email = UnitUser_owner.email %}
-    {% if task.finished == True%}
+      {% set task = taskkey.get()%}
+      {% set task_owner_key = task.owner %}
+      {% set UnitUser_owner = task_owner_key.get() %}
+      {% set UnitUser_email = UnitUser_owner.email %}
+        {% if task.finished == True%}
     <button type="button">{{task.task_name}} Owner: {{UnitUser_email}}</button><br>
     {% endif %}
     {% endfor %}
