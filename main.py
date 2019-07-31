@@ -31,16 +31,14 @@ class Unit(ndb.Model):
     task_keys = ndb.KeyProperty(kind=Task, repeated=True)
 
     def AssignTasksRandomly(self):
-        tasks_objects = self.task_keys.get()
-        user_objects = self.members.get()
-        user_emails = user_objects.email
-
-        for task in tasks_objects:
-            for owner in task:
-                current_owner_in_task = owner.get()
+        tasks_keys = self.task_keys
+        member_keys = self.members
 
 
-                current_owner_in_task = random.choice(Users)
+        for task_key in tasks_keys:
+            task = task_key.get()
+            task.owner = random.choice(member_keys)
+            task.put()
         self.put()
 
 
@@ -190,8 +188,12 @@ class AboutPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 class RandomizePage(webapp2.RequestHandler):
-    def POST(self):
-        print('yes')
+    def post(self):
+        unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
+        unit = unit_key.get()
+        unit.AssignTasksRandomly()
+
+        self.redirect('/task?group={}'.format(unit.unit_name))
 
 
 
