@@ -14,8 +14,8 @@
       <h2>+Add Tasks</h2>
       <ul>
         {%for taskkey in unit.task_keys%}
-
-        <li>{{taskkey.get().task_name}}</li>
+        {%set ownerkey = taskkey.get().owner%}
+        <li>Task: {{taskkey.get().task_name}} (Owner: {{ownerkey.get().email}})</li>
         {% endfor %}
       </ul>
     </div>
