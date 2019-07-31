@@ -1,0 +1,16 @@
+html {
+  height: 100%;
+}
+
+.everything {
+  display: flex;
+  height: 1000px;
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* #enterTitle {
+  text-align: center;
+  justify-content: center
+} */
