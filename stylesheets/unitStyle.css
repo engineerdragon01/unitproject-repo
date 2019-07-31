@@ -45,6 +45,7 @@ h1 {
 
 body {
   background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  background-attachment: fixed;
   margin: 0;
 }
 
