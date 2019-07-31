@@ -57,27 +57,22 @@ class MainPage(webapp2.RequestHandler):
         }
         #  User is always guaranteed to be logged in because of app.yaml therefore if/else not required
         user = users.get_current_user()
-        if user:
-            signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
-            email_address = user.email()
-            unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-            signout_link = (users.create_logout_url('/'))
-            template_vars["signout_link"]=signout_link
+        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
+        email_address = user.email()
+        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        signout_link = (users.create_logout_url('/'))
+        template_vars["signout_link"]=signout_link
 
-            if unit_user:
-                template_vars["first_name"]=unit_user.first_name
-                template_vars["last_name"]=unit_user.last_name
-                template = jinja_env.get_template('templates/home.html')
-                self.response.write(template.render(template_vars))
-
-            else:
-                template = jinja_env.get_template('templates/sign_up.html')
-                self.response.write(template.render(template_vars))
+        if unit_user:
+            template_vars["first_name"]=unit_user.first_name
+            template_vars["last_name"]=unit_user.last_name
+            template = jinja_env.get_template('templates/home.html')
+            self.response.write(template.render(template_vars))
 
         else:
-            login_url = users.create_login_url('/')
-            login_html_element = '<a href="%s">Sign in</a>' % login_url
-            self.response.write('Please log in.<br>' + login_html_element)
+            template = jinja_env.get_template('templates/sign_up.html')
+            self.response.write(template.render(template_vars))
+
 
     def post(self):
 
