@@ -62,14 +62,16 @@ class MainPage(webapp2.RequestHandler):
                     <link rel="stylesheet" href="stylesheets/unitStyle.css">
                     </head>
                     <body id=signup_body>
+                    <div class=everything>
                     <div class=center>
                     Welcome to our site, %s!  Please sign up! <br>
                     <form class=formFlex method="post" action="/">
-                    <input type="text" name="first_name" placeholder="Enter First Name">
-                    <input type="text" name="last_name" placeholder="Enter Last Name">
+                    <input class=unit_input type="text" name="first_name" placeholder="Enter First Name">
+                    <input class=unit_input type="text" name="last_name" placeholder="Enter Last Name">
                     <input class=submit_button type="submit">
                     </form><br> %s <br>
-                    <div>
+                    </div>
+                    </div>
                     </body>
                     ''' % (email_address, signout_link_html))
         else:
