@@ -8,13 +8,18 @@
   </head>
   <body>
     <center>
-    <h1>{{unit_name}}</h1>
+    <h1>{{unit.unit_name}}</h1>
     <br>
-    <h2>My Tasks {{currentname}}</h2>
-    <input type="checkbox" name="Input Task">
+    <h2>My Tasks</h2>
+    {% for taskkey in unit.task_keys %}
+    {%set task = taskkey.get()%}
+
+    <input type="checkbox" name="taskkeyname" value="">{{task.task_name}}<br>
     <br>
+    {% endfor %}
     <h2>Team Tasks</h2>
     <input type="checkbox" name="Input Task">
     </center>
+    <button onclick="window.location.href = '/';">Back</button>
   </body>
 </html>

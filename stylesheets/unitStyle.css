@@ -28,10 +28,8 @@
 
 .unit_input {
   display: flex;
-  flex-direction: row;
-  align-content: stretch;
+  align-items: center;
   text-align: justify;
-  justify-content: center;
   padding: 12px 160px;
   font-size: 18px;
 }

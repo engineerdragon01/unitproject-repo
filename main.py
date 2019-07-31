@@ -32,8 +32,10 @@ class Unit(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        template_vars = {
+        unit_list = Unit.query().fetch()
 
+        template_vars = {
+            "unit_list": unit_list
         }
         user = users.get_current_user()
         if user:
@@ -105,8 +107,11 @@ class EnterPage(webapp2.RequestHandler):
 
 class IndividualPage(webapp2.RequestHandler):
     def get(self):
+        unit_link = ndb.Key(urlsafe=self.request.get("group"))
+        unit = unit_link.get()
         template_vars = {
-
+            "unit_link": unit_link,
+            "unit": unit,
         }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
