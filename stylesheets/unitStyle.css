@@ -54,6 +54,10 @@ body {
   height: 100%;
 }
 
+html {
+  height: 100%;
+}
+
 .formFlex {
   display: flex;
   flex-direction: row;
