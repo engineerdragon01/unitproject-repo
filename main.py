@@ -58,12 +58,19 @@ class MainPage(webapp2.RequestHandler):
                 self.response.write(template.render(template_vars))
             else:
                 self.response.write('''
+                    <head>
+                    <link rel="stylesheet" href="stylesheets/unitStyle.css">
+                    </head>
+                    <body id=signup_body>
+                    <div class=center>
                     Welcome to our site, %s!  Please sign up! <br>
-                    <form method="post" action="/">
+                    <form class=formFlex method="post" action="/">
                     <input type="text" name="first_name" placeholder="Enter First Name">
                     <input type="text" name="last_name" placeholder="Enter Last Name">
-                    <input type="submit">
+                    <input class=submit_button type="submit">
                     </form><br> %s <br>
+                    <div>
+                    </body>
                     ''' % (email_address, signout_link_html))
         else:
 
