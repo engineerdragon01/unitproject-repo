@@ -43,3 +43,16 @@ h1 {
 body {
   background-color: #d74742;
 }
+
+.homePage {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+}
+
+.enterPage {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+}
+
+.center {
+  margin-bottom: 25%;
+  margin-top: 25%;
+}
