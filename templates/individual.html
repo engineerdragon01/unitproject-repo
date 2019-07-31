@@ -5,6 +5,7 @@
   <head>
     <title>Unit Tasks</title>
     <link rel="stylesheet" href="stylesheets/unitStyle.css">
+    <link rel="stylesheet" href="stylesheets/individual.css">
   </head>
   <body>
     <center>
@@ -12,14 +13,29 @@
     <br>
     <h2>My Tasks</h2>
     {% for taskkey in unit.task_keys %}
-    {%set task = taskkey.get()%}
-
+    {% set task = taskkey.get()%}
+    {% set task_owner_key = task.owner %}
+    {% set UnitUser_owner = task_owner_key.get() %}
+    {% set UnitUser_email = UnitUser_owner.email %}
+    {% if user_email == UnitUser_email%}
     <input type="checkbox" name="taskkeyname" value="">{{task.task_name}}<br>
     <br>
+    {% endif %}
     {% endfor %}
     <h2>Team Tasks</h2>
-    <input type="checkbox" name="Input Task">
+    {% for taskkey in unit.task_keys %}
+    {% set task = taskkey.get()%}
+    {% set task_owner_key = task.owner %}
+    {% set UnitUser_owner = task_owner_key.get() %}
+    {% set UnitUser_email = UnitUser_owner.email %}
+    {% if user_email != UnitUser_email%}
+    <button type="button">{{task.task_name}}</button><br>
+    {% endif %}
+    {% endfor %}
     </center>
+    <br>
+    <center>
     <button onclick="window.location.href = '/';">Back</button>
+    </center>
   </body>
 </html>

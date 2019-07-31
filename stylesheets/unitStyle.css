@@ -42,18 +42,10 @@
 h1 {
   font-family: "Geneva", sans-serif;
 }
-html {
-  height: 100%;
-}
 
 body {
-  height: 100%;
-  background-color: #d74742;
-  margin: 0;
-}
-
-.homePage {
   background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  margin: 0;
 }
 
 .enterPage {
@@ -70,8 +62,4 @@ body {
 .formFlex {
   display: flex;
   flex-direction: row;
-}
-
-#enterTitle {
-
 }
