@@ -9,8 +9,11 @@ html {
   justify-content: center;
 }
 
-
-/* #enterTitle {
+.enterTitle {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  justify-content: center
-} */
+}

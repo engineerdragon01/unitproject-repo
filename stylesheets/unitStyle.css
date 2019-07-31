@@ -34,6 +34,11 @@
   font-size: 18px;
 }
 
+#signup_body {
+  font-family: "Geneva", sans-serif;
+  font-size: 24px;
+}
+
 h1 {
   font-family: "Geneva", sans-serif;
 }
@@ -51,6 +56,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+html {
   height: 100%;
 }
 
