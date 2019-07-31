@@ -22,6 +22,7 @@ class Task(ndb.Model):
     task_name = ndb.StringProperty(required=True)
     description = ndb.StringProperty(required=False)
     owner = ndb.KeyProperty(kind=UnitUser, required=False)
+    finished = ndb.BooleanProperty(default=False)
     # task_check
 
 # unit model class
@@ -136,26 +137,37 @@ class IndividualPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
     def post(self):
-        print('hello')
-        print(self.request.get("currentname"))
-        unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
-        needle_task = self.request.get("task")
-        added_user_email = self.request.get("user")
+        unit_key = ndb.Key(urlsafe=self.request.get("unit_key"))
         unit = unit_key.get()
-        if needle_task:
-            user = users.get_current_user()
-            email_address = user.email()
-            unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-            task = Task(task_name=needle_task, owner=unit_user.key)
-            task_key = task.put()
-            unit.task_keys.append(task_key)
-            unit.put()
-        if added_user_email:
-            added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
-            added_user_key = added_user.put()
-            unit.members.append(added_user_key)
-            unit.put()
-        self.redirect('/task?group={}'.format(unit.unit_name))
+        tasks_keys = unit.task_keys
+        for task_key in tasks_keys:
+            checkboxvalue = self.request.get(task_key.urlsafe())
+            if checkboxvalue == 'on':
+                task = task_key.get()
+                task.finished = True
+                task.put()
+        unit.put()
+        unit_link = ndb.Key(urlsafe=self.request.get("group"))
+        unit = unit_link.get()
+        user = users.get_current_user()
+        email_address = user.email()
+        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        template_vars = {
+            "unit_link": unit_link,
+            "unit": unit,
+            "user_email": unit_user.email,
+        }
+        template = jinja_env.get_template('templates/individual.html')
+        self.response.write(template.render(template_vars))
+
+
+                #TODO: if checkboxvalue then change the task owner for task_key so it displays in finished tasks according to the jinja in individual page
+
+                # Task = ndb.Key(urlsafe=self.request.get("taskkey.urlsafe()"))
+
+
+
+
 
 class TaskPage(webapp2.RequestHandler):
     def get(self):
@@ -177,6 +189,27 @@ class TaskPage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
+    def post(self):
+        print('hello')
+        print(self.request.get("currentname"))
+        unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
+        needle_task = self.request.get("task")
+        added_user_email = self.request.get("user")
+        unit = unit_key.get()
+        if needle_task:
+            user = users.get_current_user()
+            email_address = user.email()
+            unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+            task = Task(task_name=needle_task, owner=unit_user.key)
+            task_key = task.put()
+            unit.task_keys.append(task_key)
+            unit.put()
+        if added_user_email:
+            added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
+            added_user_key = added_user.put()
+            unit.members.append(added_user_key)
+            unit.put()
+        self.redirect('/task?group={}'.format(unit.unit_name))
 
 
 class AboutPage(webapp2.RequestHandler):

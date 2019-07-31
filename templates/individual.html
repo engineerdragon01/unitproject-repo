@@ -12,14 +12,18 @@
     <h1>{{unit.unit_name}}</h1>
     <br>
     <h2>My Tasks</h2>
+    <form class="" action="/individual?group={{unit.key.urlsafe()}}" method="post">
+    <input type="hidden" name="unit_key" value="{{unit.key.urlsafe()}}">
     {% for taskkey in unit.task_keys %}
     {% set task = taskkey.get()%}
+    {% if task.finished == False%}
     {% set task_owner_key = task.owner %}
     {% set UnitUser_owner = task_owner_key.get() %}
     {% set UnitUser_email = UnitUser_owner.email %}
     {% if user_email == UnitUser_email%}
-    <input type="checkbox" name="taskkeyname" value="">{{task.task_name}} Owner: {{UnitUser_email}}<br>
+    <input type="checkbox" name="{{taskkey.urlsafe()}}">{{task.task_name}} Owner: {{UnitUser_email}}<br>
     <br>
+    {% endif %}
     {% endif %}
     {% endfor %}
     <h2>Team Tasks</h2>
@@ -28,10 +32,24 @@
     {% set task_owner_key = task.owner %}
     {% set UnitUser_owner = task_owner_key.get() %}
     {% set UnitUser_email = UnitUser_owner.email %}
+    {% if task.finished == False%}
     {% if user_email != UnitUser_email%}
     <button type="button">{{task.task_name}} Owner: {{UnitUser_email}}</button><br>
     {% endif %}
+    {% endif %}
     {% endfor %}
+    <h2>Finished Tasks</h2>
+    {% for taskkey in unit.task_keys %}
+    {% set task = taskkey.get()%}
+    {% set task_owner_key = task.owner %}
+    {% set UnitUser_owner = task_owner_key.get() %}
+    {% set UnitUser_email = UnitUser_owner.email %}
+    {% if task.finished == True%}
+    <button type="button">{{task.task_name}} Owner: {{UnitUser_email}}</button><br>
+    {% endif %}
+    {% endfor %}
+    <button class=submit_button type="submit">Submit Progress</button>
+    </form>
     </center>
     <br>
     <center>

@@ -8,7 +8,7 @@
   </head>
   <body>
       <center>
-          <form method="POST" action="/individual">
+          <form method="POST" action="/task">
     <h1>Unit: {{unit.unit_name}}</h1>
     <div>
       <h2>+Add Tasks</h2>
@@ -25,7 +25,7 @@
       <button class=submit_button type="submit" name="button">Add</button>
       <div>
         </form>
-        <form method="POST" action="/individual">
+        <form method="POST" action="/task">
         <h2>+Add Members</h2>
         <ul>
           {% for userkey in unit.members%}
