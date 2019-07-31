@@ -4,29 +4,28 @@
     <title>Find Your Unit</title>
     <link rel="stylesheet" href="stylesheets/unitStyle.css">
   </head>
+  Welcome {{first_name}} {{last_name}} ({{member_email}})!
+  <br>
+  <a href="{{signout_link}}">Sign Out</a>
   <body>
     <center>
     <img src="images/logo.jpg" alt="unit logo">
     <h1><u>My Units</u></h1>
     {% for unit in unit_list%}
-    {% set unit_member_keys = unit.members %}
-    {% for member_key in unit_member_keys %}
-    {% set member = member_key.get()%}
-    {% set memberemail = member.email%}
-    {% if member_email == memberemail%}
-    <div>
-      <a href="/individual?group={{unit.key.urlsafe()}}">
-      <button class=home_button type="button" name="button">{{unit.unit_name}}</button>
-      </a>
-    </div>
-    {% endif %}
+      {% for member_key in unit.members %}
+        {% if member_email == member_key.get().email%}
+          <div>
+            <a href="/individual?group={{unit.key.urlsafe()}}">
+            <button class="home_button" type="button" name="button">{{unit.unit_name}}</button>
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
     {% endfor %}
-    {% endfor %}
-    <br>
     <div>
-
+      <br>
       <a href="/enter">
-        <button class=home_button type="button" name="button" onclick="window.location.href = '/enter';">Create</button>
+        <button class="plus-button" type="button" name="button" onclick="window.location.href = '/enter';">+</button>
       </a>
     </div>
     <br>
