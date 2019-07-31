@@ -3,6 +3,7 @@ import webapp2
 import jinja2
 import os
 import logging
+import random
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -28,6 +29,20 @@ class Unit(ndb.Model):
     unit_name = ndb.StringProperty(required=True)
     members = ndb.KeyProperty(kind=UnitUser, repeated=True)
     task_keys = ndb.KeyProperty(kind=Task, repeated=True)
+
+    def AssignTasksRandomly(self):
+        tasks_keys = self.task_keys
+        member_keys = self.members
+
+
+        for task_key in tasks_keys:
+            task = task_key.get()
+            task.owner = random.choice(member_keys)
+            task.put()
+        self.put()
+
+
+
 
 
 class MainPage(webapp2.RequestHandler):
@@ -120,6 +135,7 @@ class IndividualPage(webapp2.RequestHandler):
         }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
+
     def post(self):
         print('hello')
         print(self.request.get("currentname"))
@@ -140,8 +156,8 @@ class IndividualPage(webapp2.RequestHandler):
             added_user_key = added_user.put()
             unit.members.append(added_user_key)
             unit.put()
-
         self.redirect('/task?group={}'.format(unit.unit_name))
+
 class TaskPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -172,6 +188,15 @@ class AboutPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/about.html')
         self.response.write(template.render(template_vars))
 
+class RandomizePage(webapp2.RequestHandler):
+    def post(self):
+        unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
+        unit = unit_key.get()
+        unit.AssignTasksRandomly()
+
+        self.redirect('/task?group={}'.format(unit.unit_name))
+
+
 
 
 app = webapp2.WSGIApplication([
@@ -180,4 +205,5 @@ app = webapp2.WSGIApplication([
     ('/individual', IndividualPage),
     ('/task', TaskPage),
     ('/about', AboutPage),
+    ('/randomize_assignment', RandomizePage),
 ], debug = True)

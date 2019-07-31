@@ -19,17 +19,16 @@
     {% if member_email == memberemail%}
     <div>
       <a href="/individual?group={{unit.key.urlsafe()}}">
-      <button class=home_button type="button" name="button">{{unit.unit_name}}</button>
+      <button class="home_button" type="button" name="button">{{unit.unit_name}}</button>
       </a>
     </div>
     {% endif %}
     {% endfor %}
     {% endfor %}
-    <br>
     <div>
-
+      <br>
       <a href="/enter">
-        <button class=home_button type="button" name="button" onclick="window.location.href = '/enter';">Create</button>
+        <button class="plus-button" type="button" name="button" onclick="window.location.href = '/enter';">+</button>
       </a>
     </div>
     <br>
