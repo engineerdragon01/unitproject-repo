@@ -111,9 +111,13 @@ class IndividualPage(webapp2.RequestHandler):
     def get(self):
         unit_link = ndb.Key(urlsafe=self.request.get("group"))
         unit = unit_link.get()
+        user = users.get_current_user()
+        email_address = user.email()
+        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
         template_vars = {
             "unit_link": unit_link,
             "unit": unit,
+            "user_email": unit_user.email,
         }
         template = jinja_env.get_template('templates/individual.html')
         self.response.write(template.render(template_vars))
@@ -125,7 +129,10 @@ class IndividualPage(webapp2.RequestHandler):
         added_user_email = self.request.get("user")
         unit = unit_key.get()
         if needle_task:
-            task = Task(task_name=needle_task)
+            user = users.get_current_user()
+            email_address = user.email()
+            unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+            task = Task(task_name=needle_task, owner=unit_user.key)
             task_key = task.put()
             unit.task_keys.append(task_key)
             unit.put()
