@@ -60,24 +60,16 @@ class MainPage(webapp2.RequestHandler):
             signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
             email_address = user.email()
             unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+            signout_link = (users.create_logout_url('/'))
+            template_vars["signout_link"]=signout_link
 
             if unit_user:
-                signout_link = (users.create_logout_url('/'))
-                template_vars = {
-                    "signout_link": signout_link,
-                    "member_email": email_address,
-                    "first_name": unit_user.first_name,
-                    "last_name": unit_user.last_name,
-                }
+                template_vars["first_name"]=unit_user.first_name
+                template_vars["last_name"]=unit_user.last_name
                 template = jinja_env.get_template('templates/home.html')
                 self.response.write(template.render(template_vars))
 
             else:
-                signout_link = (users.create_logout_url('/'))
-                template_vars = {
-                    "signout_link": signout_link,
-                    "member_email": email_address,
-                }
                 template = jinja_env.get_template('templates/sign_up.html')
                 self.response.write(template.render(template_vars))
 
