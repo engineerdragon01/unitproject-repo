@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="stylesheets/unitStyle.css">
+  </head>
+  <body>
+    <div class="everything">
+      <div class="center">
+        Welcome to our site, {{member_email}}!  Please sign up!
+          <br>
+            <form class="formFlex" method="post" action="/">
+              <input class="unit_input" type="text" name="first_name" placeholder="Enter First Name">
+              <input class="unit_input" type="text" name="last_name" placeholder="Enter Last Name">
+              <input class="submit_button" type="submit">
+            </form>
+          <br> %s <br>
+        </div>
+    </div>
+    <a href="{{signout_link}}">Sign Out</a>
+  </body>
+</html>

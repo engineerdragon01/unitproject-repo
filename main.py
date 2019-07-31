@@ -57,25 +57,14 @@ class MainPage(webapp2.RequestHandler):
                 template = jinja_env.get_template('templates/home.html')
                 self.response.write(template.render(template_vars))
             else:
-                self.response.write('''
-                    <head>
-                    <link rel="stylesheet" href="stylesheets/unitStyle.css">
-                    </head>
-                    <body id=signup_body>
-                    <div class=everything>
-                    <div class=center>
-                    Welcome to our site, %s!  Please sign up! <br>
-                    <form class=formFlex method="post" action="/">
-                    <input class=unit_input type="text" name="first_name" placeholder="Enter First Name">
-                    <input class=unit_input type="text" name="last_name" placeholder="Enter Last Name">
-                    <input class=submit_button type="submit">
-                    </form><br> %s <br>
-                    </div>
-                    </div>
-                    </body>
-                    ''' % (email_address, signout_link_html))
+                signout_link = (users.create_logout_url('/'))
+                template_vars = {
+                    "signout_link": signout_link,
+                    "member_email": email_address,
+                }
+                template = jinja_env.get_template('templates/sign_up.html')
+                self.response.write(template.render(template_vars))
         else:
-
             login_url = users.create_login_url('/')
             login_html_element = '<a href="%s">Sign in</a>' % login_url
 
