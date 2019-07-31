@@ -42,7 +42,36 @@
 h1 {
   font-family: "Geneva", sans-serif;
 }
+html {
+  height: 100%;
+}
 
 body {
+  height: 100%;
   background-color: #d74742;
+  margin: 0;
+}
+
+.homePage {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+}
+
+.enterPage {
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.formFlex {
+  display: flex;
+  flex-direction: row;
+}
+
+#enterTitle {
+
 }
