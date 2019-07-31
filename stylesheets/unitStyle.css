@@ -39,9 +39,14 @@
 h1 {
   font-family: "Geneva", sans-serif;
 }
+html {
+  height: 100%;
+}
 
 body {
+  height: 100%;
   background-color: #d74742;
+  margin: 0;
 }
 
 .homePage {
@@ -53,6 +58,17 @@ body {
 }
 
 .center {
-  margin-bottom: 25%;
-  margin-top: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.formFlex {
+  display: flex;
+  flex-direction: row;
+}
+
+#enterTitle {
+
 }
