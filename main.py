@@ -48,31 +48,40 @@ class Unit(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        unit_list = Unit.query().fetch()
-        user = users.get_current_user()
-        email_address = user.email()
-        template_vars = {
-            "unit_list": unit_list,
-            "member_email": email_address,
-        }
         #  User is always guaranteed to be logged in because of app.yaml therefore if/else not required
         user = users.get_current_user()
-        signout_link_html = '<a href="%s">sign out</a>' % (users.create_logout_url('/'))
         email_address = user.email()
-        unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-        signout_link = (users.create_logout_url('/'))
-        template_vars["signout_link"]=signout_link
+        user_urlsafe = self.request.get("user_key")
+
+        if user_urlsafe:
+            user_key = ndb.Key(urlsafe=user_urlsafe)
+            unit_user = user_key.get()
+            if unit_user.email != email_address:
+                unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+        else:
+            unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+
+        signout_link = users.create_logout_url('/')
 
         if unit_user:
-            template_vars["first_name"]=unit_user.first_name
-            template_vars["last_name"]=unit_user.last_name
+            unit_list = Unit.query().fetch()
+            template_vars = {
+                "unit_list": unit_list,
+                "member_email": email_address,
+                "first_name": unit_user.first_name,
+                "last_name": unit_user.last_name,
+                "signout_link": signout_link,
+            }
             template = jinja_env.get_template('templates/home.html')
             self.response.write(template.render(template_vars))
 
         else:
+            template_vars = {
+                "member_email": email_address,
+                "signout_link": signout_link,
+            }
             template = jinja_env.get_template('templates/sign_up.html')
             self.response.write(template.render(template_vars))
-
 
     def post(self):
 
@@ -81,14 +90,8 @@ class MainPage(webapp2.RequestHandler):
             first_name=self.request.get('first_name'),
             last_name=self.request.get('last_name'),
             email=user.email())
-        unit_user.put()
-        self.response.write('Thanks for signing up, %s! <br><a href="/">Home</a>' % unit_user.first_name)
-        template_vars = {
-
-        }
-
-        # template = jinja_env.get_template('templates/home.html')
-        # self.response.write(template.render(template_vars))
+        unit_user_key = unit_user.put()
+        self.redirect('/?user_key=' + unit_user_key.urlsafe())
 
 class EnterPage(webapp2.RequestHandler):
     def get(self):
