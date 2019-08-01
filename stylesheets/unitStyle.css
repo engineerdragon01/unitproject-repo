@@ -1,7 +1,7 @@
 .home_button {
   background-color: lightgrey;
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   padding: 24px 160px;
   border-radius: 12px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0
@@ -10,7 +10,7 @@
   transition: 0.3s;
   display:inline-block;
   cursor: pointer;
-  font-family: 'Lobster Two', cursive;
+  font-family: "Geneva", sans-serif;
 }
 
 .submit_button {
