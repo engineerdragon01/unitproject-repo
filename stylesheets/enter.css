@@ -1,6 +1,9 @@
 html {
   height: 100%;
 }
+/* body {
+  height: 100%;
+} */
 
 .everything {
   display: flex;
@@ -19,4 +22,31 @@ html {
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  font-family: "Geneva", sans-serif;
+}
+
+/* .splash {
+    width: 600px;
+    position: absolute;
+    right: -100px;
+    top: 40px;
+    z-index: -10; */
+/* } */
+.stuff {
+  /* background-image: url('/images/splash.svg');
+  background-size: 1602px 1321px;
+  background-repeat: no-repeat; */
+}
+.stuff {
+  background-image: url('/images/splash.svg');
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 650px;
+  height: 650px;
+  background-size: 1100px 1384px;
+  transform: translate(-50%, -50%);
+  z-index: -1;
 }
