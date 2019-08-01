@@ -110,3 +110,15 @@ h1 {
 		width: 1em;
 	}
 }
+
+.homebody {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+}
+
+.divhome {
+  display: flex;
+  padding: 10px;
+}

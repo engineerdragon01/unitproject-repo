@@ -1,3 +1,59 @@
 html {
   height: 100%;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 {
+
+}
+
+.teambutton {
+  margin: 10px;
+  background-color: red;
+  text-align: center;
+  font-size: 24px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0
+  rgba(0,0,0,0.19);
+  opacity: .6;
+  transition: 0.3s;
+  display:inline-block;
+  cursor: pointer;
+}
+
+.individualbutton {
+  margin: 10px;
+  background-color: orange;
+  text-align: center;
+  font-size: 24px;
+  padding: 8px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0
+  rgba(0,0,0,0.19);
+  opacity: .6;
+  transition: 0.3s;
+  display:inline-block;
+  cursor: pointer;
+}
+
+.finishedbutton {
+  margin: 10px;
+  background-color: green;
+  text-align: center;
+  font-size: 24px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0
+  rgba(0,0,0,0.19);
+  opacity: .6;
+  transition: 0.3s;
+  display:inline-block;
+  cursor: pointer;
+}
