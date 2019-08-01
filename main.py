@@ -87,9 +87,6 @@ class MainPage(webapp2.RequestHandler):
 
         }
 
-        # template = jinja_env.get_template('templates/home.html')
-        # self.response.write(template.render(template_vars))
-
 class EnterPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
@@ -104,7 +101,7 @@ class EnterPage(webapp2.RequestHandler):
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
         new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
-        self.redirect('/task?group='+self.request.get("group"))
+        self.redirect('/task?unit=' + new_unit.urlsafe())
 
 
 class IndividualPage(webapp2.RequestHandler):
@@ -160,9 +157,16 @@ class TaskPage(webapp2.RequestHandler):
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-
-        needle_name = self.request.get("group")
-        unit = Unit.query().filter(Unit.unit_name == needle_name).get()
+        if self.request.get("group"):
+            needle_name = self.request.get("group")
+            print('here')
+            print(needle_name)
+            unit = Unit.query().filter(Unit.unit_name == needle_name).get()
+            print(unit)
+        else:
+            unit_key_url = self.request.get("unit")
+            unit_key = ndb.Key(urlsafe=unit_key_url)
+            unit = unit_key.get()
         # if unit:
         #     print('already made')
         # else:
