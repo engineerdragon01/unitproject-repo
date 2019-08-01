@@ -240,19 +240,6 @@ class RandomizePage(webapp2.RequestHandler):
         unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
         unit = unit_key.get()
         unit.AssignTasksRandomly()
-        mail.send_mail(sender="automatedmessage@the-unit-cssi.appspotmail.com",
-        to="Albert Johnson <dragonboy174@gmail.com>",
-                   subject="Your account has been approved",
-                   body="""Dear Albert:
-
-Your example.com account has been approved.  You can now visit
-http://www.example.com/ and sign in using your Google Account to
-access new features.
-
-Please let us know if you have any questions.
-
-The example.com Team
-""")
         self.redirect('/task?group={}'.format(unit.unit_name))
 
 
