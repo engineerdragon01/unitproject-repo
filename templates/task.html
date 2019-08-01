@@ -39,6 +39,9 @@
     <button class=submit_button type="submit" name="button">Add</button>
       </center>
     </form>
+    {%if user_in_data != True%}
+      <h2>User not found in database</h2>
+    {% endif %}
     <button onclick="window.location.href = '/';">Create</button>
     <form class="" action="/randomize_assignment" method="POST">
       <input type="hidden" name="currentname" value="{{unit_key}}">
