@@ -6,7 +6,7 @@ import logging
 import random
 from google.appengine.ext import ndb
 from google.appengine.api import users
-
+from google.appengine.api import mail
 
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -98,15 +98,13 @@ class EnterPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/enter.html')
         self.response.write(template.render(template_vars))
     def post(self):
+
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
+
         new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
-        template_vars = {
-            "unit_name": self.request.get("group"),
-        }
-        template = jinja_env.get_template('templates/enter.html')
-        self.response.write(template.render(template_vars))
+        self.redirect('/task?group='+self.request.get("group"))
 
 
 class IndividualPage(webapp2.RequestHandler):
@@ -165,25 +163,32 @@ class TaskPage(webapp2.RequestHandler):
 
         needle_name = self.request.get("group")
         unit = Unit.query().filter(Unit.unit_name == needle_name).get()
-        if unit:
-            print('already made')
-        else:
-            unit = Unit(unit_name=needle_name, members=[unit_user.key])
-            unit_key = unit.put()
+        # if unit:
+        #     print('already made')
+        # else:
+        #     unit = Unit(unit_name=needle_name, members=[unit_user.key])
+        #     unit_key = unit.put()
         template_vars = {
             "unit": unit,
             "unit_name": self.request.get("group"),
             "unit_key": unit.key.urlsafe(),
+            "user_in_data": self.request.get("user") == 'True',
         }
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
     def post(self):
         print('hello')
         print(self.request.get("currentname"))
+        user_in_data = True
         unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
         needle_task = self.request.get("task")
         added_user_email = self.request.get("user")
         unit = unit_key.get()
+        user_objects = UnitUser.query().fetch()
+        email_list = []
+        members_added = []
+        for user in user_objects:
+            email_list.append(user.email)
         if needle_task:
             user = users.get_current_user()
             email_address = user.email()
@@ -192,12 +197,18 @@ class TaskPage(webapp2.RequestHandler):
             task_key = task.put()
             unit.task_keys.append(task_key)
             unit.put()
-        if added_user_email:
-            added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
-            added_user_key = added_user.put()
-            unit.members.append(added_user_key)
-            unit.put()
-        self.redirect('/task?group={}'.format(unit.unit_name))
+        if added_user_email in email_list:
+            if added_user_email and added_user_email not in members_added:
+                members_added.append(added_user_email)
+                added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
+                added_user_key = added_user.put()
+                unit.members.append(added_user_key)
+                unit.put()
+            user_in_data = True
+        else:
+            user_in_data = False
+
+        self.redirect('/task?group={}&user={}'.format(unit.unit_name, user_in_data))
 
 
 class AboutPage(webapp2.RequestHandler):
