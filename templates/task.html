@@ -12,11 +12,8 @@
     <h1>Unit: {{unit.unit_name}}</h1>
 
       <h2>Your Tasks</h2>
-      <div class="divclass">
-        <div>
-          <div>
-            <div class="taskorder" >
-      <ul  style="list-style: none;">
+      <div class="divclass" align="left">
+      <ul style="list-style: none;">
         {%for taskkey in unit.task_keys%}
         {%set ownerkey = taskkey.get().owner%}
         <li class="displaytask">{{taskkey.get().task_name}} (Owner: {{ownerkey.get().email}})</li>

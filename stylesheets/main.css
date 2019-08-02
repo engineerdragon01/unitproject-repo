@@ -25,3 +25,8 @@ h3 {
   text-align: center;
   font-size: 70px
 }
+
+.groupPicture {
+  width: 100%;
+  transform: translate(840px, -350px);
+}

@@ -127,7 +127,10 @@ h1 {
 .divclass {
   display: flex;
   justify-content: center;
-  flex-flow: row;
+  align-self: center;
+  flex-flow: column;
+  width: auto;
+  padding: 0 0 0 37%;
 }
 
 .centeringbuttons {
