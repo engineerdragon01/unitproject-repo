@@ -126,9 +126,8 @@ h1 {
 
 .divclass {
   display: flex;
-  justify-content: flex-start;
-  flex-flow: column;
-  width: auto;
+  justify-content: center;
+  flex-flow: row;
 }
 
 .centeringbuttons {
@@ -136,4 +135,14 @@ h1 {
   flex-flow: row;
   justify-content: center;
   align-items: baseline;
+}
+
+.taskorder {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.displaytask {
+  align-self: flex-start;
 }
