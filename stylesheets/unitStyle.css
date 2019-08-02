@@ -126,9 +126,20 @@ h1 {
 
 .divclass {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-self: center;
   flex-flow: column;
   width: auto;
+  padding: 0 0 0 41%;
+}
+
+.divclass2 {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-flow: column;
+  width: auto;
+  padding: 0 0 0 44%;
 }
 
 .centeringbuttons {
@@ -138,15 +149,12 @@ h1 {
   align-items: baseline;
 }
 
-
-/* .homeWords {
-  font-size: 60px;
-  transform: translate(-460px, -738px);
-  font-family: "Geneva", sans-serif;
+.taskorder {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
 }
 
-.homeWords2 {
-  font-size: 60px;
-  transform: translate(530px, -930px);
-  font-family: "Geneva", sans-serif;
-} */
+.displaytask {
+  align-self: flex-start;
+}
