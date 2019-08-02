@@ -130,8 +130,16 @@ h1 {
   align-self: center;
   flex-flow: column;
   width: auto;
-  padding: 0 0 0 37%;
+  padding: 0 0 0 41%;
+}
 
+.divclass2 {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-flow: column;
+  width: auto;
+  padding: 0 0 0 44%;
 }
 
 .centeringbuttons {
