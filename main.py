@@ -212,10 +212,10 @@ class TaskPage(webapp2.RequestHandler):
                 added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
                 added_user_key = added_user.put()
                 unit.members.append(added_user_key)
-                # mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
-                #    to=added_user.email,
-                #    subject="You have been added to a new Unit!",
-                #    body="Log in to the Unit")
+                mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
+                   to=added_user.email,
+                   subject="You have been added to a new Unit!",
+                   body="Log in to the Unit")
                 unit.put()
 
 
