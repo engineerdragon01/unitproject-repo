@@ -25,6 +25,7 @@
   transition: 0.3s;
   display:inline-block;
   cursor: pointer;
+  margin: 10px;
 }
 
 .unit_input {
@@ -121,4 +122,18 @@ h1 {
 .divhome {
   display: flex;
   padding: 10px;
+}
+
+.divclass {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column;
+  width: auto;
+}
+
+.centeringbuttons {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: baseline;
 }
