@@ -11,6 +11,7 @@ from google.appengine.api import mail
 jinja_env = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
+members_added = []
 
 
 class UnitUser(ndb.Model):
@@ -171,10 +172,7 @@ class TaskPage(webapp2.RequestHandler):
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
         if self.request.get("group"):
             needle_name = self.request.get("group")
-            print('here')
-            print(needle_name)
             unit = Unit.query().filter(Unit.unit_name == needle_name).get()
-            print(unit)
         else:
             unit_key_url = self.request.get("unit")
             unit_key = ndb.Key(urlsafe=unit_key_url)
@@ -188,8 +186,6 @@ class TaskPage(webapp2.RequestHandler):
         template = jinja_env.get_template('templates/task.html')
         self.response.write(template.render(template_vars))
     def post(self):
-        print('hello')
-        print(self.request.get("currentname"))
         user_in_data = True
         unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
         needle_task = self.request.get("task")
@@ -197,7 +193,7 @@ class TaskPage(webapp2.RequestHandler):
         unit = unit_key.get()
         user_objects = UnitUser.query().fetch()
         email_list = []
-        members_added = []
+        global members_added
         for user in user_objects:
             email_list.append(user.email)
         if needle_task:
@@ -216,12 +212,11 @@ class TaskPage(webapp2.RequestHandler):
                 added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
                 added_user_key = added_user.put()
                 unit.members.append(added_user_key)
-                mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
-                   to=added_user.email,
-                   subject="You have been added to a new Unit!",
-                   body="Log in to the Unit")
+                # mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
+                #    to=added_user.email,
+                #    subject="You have been added to a new Unit!",
+                #    body="Log in to the Unit")
                 unit.put()
-            user_in_data = True
 
 
         self.redirect('/task?group={}&user={}'.format(unit.unit_name, user_in_data))
