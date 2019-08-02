@@ -179,11 +179,6 @@ class TaskPage(webapp2.RequestHandler):
             unit_key_url = self.request.get("unit")
             unit_key = ndb.Key(urlsafe=unit_key_url)
             unit = unit_key.get()
-        # if unit:
-        #     print('already made')
-        # else:
-        #     unit = Unit(unit_name=needle_name, members=[unit_user.key])
-        #     unit_key = unit.put()
         template_vars = {
             "unit": unit,
             "unit_name": self.request.get("group"),
@@ -219,6 +214,10 @@ class TaskPage(webapp2.RequestHandler):
                 added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
                 added_user_key = added_user.put()
                 unit.members.append(added_user_key)
+                mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
+                   to=added_user.email,
+                   subject="You have been added to a new Unit!",
+                   body="Log in to the Unit")
                 unit.put()
             user_in_data = True
         else:
