@@ -11,7 +11,7 @@
           <form method="POST" action="/task">
     <h1>Unit: {{unit.unit_name}}</h1>
 
-      <h2>Your Tasks</h2>
+      <h2 class=task_titles>Your Tasks</h2>
       <div class="divclass" align="left">
       <ul style="list-style: none;">
         {%for taskkey in unit.task_keys%}
@@ -30,7 +30,7 @@
       <div>
         </form>
         <form method="POST" action="/task">
-        <h2>Your Members</h2>
+        <h2 class=task_titles>Your Members</h2>
         <div class="divclass2" align="left">
         <ul style="list-style: none;">
           {% for userkey in unit.members%}

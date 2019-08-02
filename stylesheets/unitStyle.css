@@ -13,6 +13,11 @@
   font-family: "Geneva", sans-serif;
 }
 
+.task_titles {
+  font-size: 29px;
+  font-family: "Geneva", sans-serif;
+}
+
 .submit_button {
   background-color: lightgrey;
   text-align: center;
@@ -131,6 +136,8 @@ h1 {
   flex-flow: column;
   width: auto;
   padding: 0 0 0 41%;
+  font-size: 20px;
+  font-family: "Geneva", sans-serif;
 }
 
 .divclass2 {
@@ -140,6 +147,17 @@ h1 {
   flex-flow: column;
   width: auto;
   padding: 0 0 0 44%;
+  font-size: 20px;
+  font-family: "Geneva", sans-serif;
+}
+
+.individualfont {
+  font-family: "Geneva", sans-serif;
+}
+
+.individualfont2 {
+  font-size: 31px;
+  font-family: "Geneva", sans-serif;
 }
 
 .centeringbuttons {

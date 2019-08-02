@@ -3,7 +3,7 @@
 
 <html>
   <head>
-    <title>Unit Tasks</title>
+    <title class="individualfont">Unit Tasks</title>
     <link rel="stylesheet" href="stylesheets/unitStyle.css">
     <link rel="stylesheet" href="stylesheets/individual.css">
   </head>
@@ -11,7 +11,7 @@
     <center>
     <h1>{{unit.unit_name}}</h1>
     <br>
-    <h2>My Tasks</h2>
+    <h2 class="individualfont2">My Tasks</h2>
     <form class="" action="/individual?group={{unit.key.urlsafe()}}" method="post">
     <input type="hidden" name="unit_key" value="{{unit.key.urlsafe()}}">
     {% for taskkey in unit.task_keys %}
@@ -21,12 +21,12 @@
     {% set UnitUser_owner = task_owner_key.get() %}
     {% set UnitUser_email = UnitUser_owner.email %}
     {% if user_email == UnitUser_email%}
-    <input style="list-style-type: none;" type="checkbox" name="{{taskkey.urlsafe()}}"><h3 class="individualbutton">{{task.task_name}} Owner: {{UnitUser_email}}</h3><br>
+    <input style="list-style-type: none;" type="checkbox" name="{{taskkey.urlsafe()}}"><h3 class="individualbutton individualfont">{{task.task_name}} Owner: {{UnitUser_email}}</h3><br>
     <br>
     {% endif %}
     {% endif %}
     {% endfor %}
-    <h2>Team Tasks</h2>
+    <h2 class="individualfont2">Team Tasks</h2>
     {% for taskkey in unit.task_keys %}
       {% set task = taskkey.get()%}
       {% set task_owner_key = task.owner %}
@@ -38,7 +38,7 @@
           {% endif %}
       {% endif %}
     {% endfor %}
-    <h2>Finished Tasks</h2>
+    <h2 class="individualfont2">Finished Tasks</h2>
     {% for taskkey in unit.task_keys %}
       {% set task = taskkey.get()%}
       {% set task_owner_key = task.owner %}
