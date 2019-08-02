@@ -211,6 +211,8 @@ class TaskPage(webapp2.RequestHandler):
         if added_user_email in email_list:
             if added_user_email and added_user_email not in members_added:
                 members_added.append(added_user_email)
+                print('here')
+                print(members_added)
                 added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
                 added_user_key = added_user.put()
                 unit.members.append(added_user_key)
@@ -220,8 +222,7 @@ class TaskPage(webapp2.RequestHandler):
                    body="Log in to the Unit")
                 unit.put()
             user_in_data = True
-        else:
-            user_in_data = False
+
 
         self.redirect('/task?group={}&user={}'.format(unit.unit_name, user_in_data))
 

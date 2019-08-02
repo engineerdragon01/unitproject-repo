@@ -10,9 +10,10 @@
       <center>
           <form method="POST" action="/task">
     <h1>Unit: {{unit.unit_name}}</h1>
-    <div>
+
       <h2>Your Tasks</h2>
-      <ul>
+      <div class="divclass">
+      <ul style="list-style: none;">
         {%for taskkey in unit.task_keys%}
         {%set ownerkey = taskkey.get().owner%}
         <li>{{taskkey.get().task_name}} (Owner: {{ownerkey.get().email}})</li>
@@ -27,7 +28,7 @@
         </form>
         <form method="POST" action="/task">
         <h2>Your Members</h2>
-        <ul>
+        <ul style="list-style: none;">
           {% for userkey in unit.members%}
           <li>{{userkey.get().email}}</li>
           {% endfor %}
@@ -39,13 +40,14 @@
     <button class=submit_button type="submit" name="button">Add</button>
       </center>
     </form>
-    {%if user_in_data != True%}
-      <h2>User not found in database</h2>
-    {% endif %}
-    <button onclick="window.location.href = '/';">Create</button>
+    <div class="centeringbuttons">
+
+
+    <button class="submit_button" onclick="window.location.href = '/';">Create</button>
     <form class="" action="/randomize_assignment" method="POST">
       <input type="hidden" name="currentname" value="{{unit_key}}">
-      <button class=submit_button type="submit" name="button">Randomize</button>
+      <button class="submit_button" type="submit" name="button">Randomize</button>
     </form>
+    </div>
   </body>
 </html>
