@@ -31,11 +31,13 @@
         </form>
         <form method="POST" action="/task">
         <h2>Your Members</h2>
+        <div class="divclass2" align="left">
         <ul style="list-style: none;">
           {% for userkey in unit.members%}
           <li>{{userkey.get().email}}</li>
           {% endfor %}
         </ul>
+        </div>
       </div>
       <input type="text" name="user">
       <input type="hidden" name="currentname" value="{{unit_key}}">
