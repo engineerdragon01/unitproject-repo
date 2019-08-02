@@ -30,15 +30,21 @@ class Unit(ndb.Model):
     unit_name = ndb.StringProperty(required=True)
     members = ndb.KeyProperty(kind=UnitUser, repeated=True)
     task_keys = ndb.KeyProperty(kind=Task, repeated=True)
-
+    def ComputeMultiplier(self):
+        multiplier = len(self.task_keys) / len(self.members)
+        if len(self.task_keys) % len(self.members) != 0:
+            multiplier += 1;
+        return multiplier
     def AssignTasksRandomly(self):
         tasks_keys = self.task_keys
         member_keys = self.members
-
+        availablemembers = member_keys * self.ComputeMultiplier()
 
         for task_key in tasks_keys:
+            print(availablemembers)
             task = task_key.get()
-            task.owner = random.choice(member_keys)
+            task.owner = random.choice(availablemembers)
+            availablemembers.remove(task.owner)
             task.put()
         self.put()
 
@@ -107,7 +113,7 @@ class EnterPage(webapp2.RequestHandler):
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
 
         new_unit = Unit(unit_name=self.request.get("group"), members=[unit_user.key]).put()
-        self.redirect('/task?group='+self.request.get("group"))
+        self.redirect('/task?unit=' + new_unit.urlsafe())
 
 
 class IndividualPage(webapp2.RequestHandler):
@@ -163,14 +169,16 @@ class TaskPage(webapp2.RequestHandler):
         user = users.get_current_user()
         email_address = user.email()
         unit_user = UnitUser.query().filter(UnitUser.email == email_address).get()
-
-        needle_name = self.request.get("group")
-        unit = Unit.query().filter(Unit.unit_name == needle_name).get()
-        # if unit:
-        #     print('already made')
-        # else:
-        #     unit = Unit(unit_name=needle_name, members=[unit_user.key])
-        #     unit_key = unit.put()
+        if self.request.get("group"):
+            needle_name = self.request.get("group")
+            print('here')
+            print(needle_name)
+            unit = Unit.query().filter(Unit.unit_name == needle_name).get()
+            print(unit)
+        else:
+            unit_key_url = self.request.get("unit")
+            unit_key = ndb.Key(urlsafe=unit_key_url)
+            unit = unit_key.get()
         template_vars = {
             "unit": unit,
             "unit_name": self.request.get("group"),
@@ -206,6 +214,10 @@ class TaskPage(webapp2.RequestHandler):
                 added_user = UnitUser.query().filter(UnitUser.email == added_user_email).get()
                 added_user_key = added_user.put()
                 unit.members.append(added_user_key)
+                mail.send_mail(sender="AddedUnit@the-unit-cssi@appspotmail.com",
+                   to=added_user.email,
+                   subject="You have been added to a new Unit!",
+                   body="Log in to the Unit")
                 unit.put()
             user_in_data = True
         else:
@@ -227,7 +239,6 @@ class RandomizePage(webapp2.RequestHandler):
         unit_key = ndb.Key(urlsafe=self.request.get("currentname"))
         unit = unit_key.get()
         unit.AssignTasksRandomly()
-
         self.redirect('/task?group={}'.format(unit.unit_name))
 
 
